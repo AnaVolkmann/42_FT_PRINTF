@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-lda- <ana-lda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 20:01:05 by ana-lda-          #+#    #+#             */
-/*   Updated: 2024/05/05 18:56:33 by ana-lda-         ###   ########.fr       */
+/*   Created: 2024/05/05 18:59:06 by ana-lda-          #+#    #+#             */
+/*   Updated: 2024/05/05 19:09:42 by ana-lda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-#include <stdarg.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+int	ft_putchar(int c)
+{
+	int	result;
 
-int	ft_printf(const char *str, ...);
-
-#endif
+	result = 0;
+	result += write(1, &c, 1);
+	return (result);
+}

@@ -1,4 +1,4 @@
-SRC = 
+SRC = ft_printf.c 
 OBJ = ${SRC:.c= .o}
 CC = cc 
 CCFLAGS = -Werror -Wextra -Wall
