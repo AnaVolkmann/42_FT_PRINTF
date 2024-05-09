@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavolkmann <anavolkmann@student.42.fr>    +#+  +:+       +#+        */
+/*   By: ana-lda- <ana-lda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:15:57 by anavolkmann       #+#    #+#             */
-/*   Updated: 2024/05/09 10:33:36 by anavolkmann      ###   ########.fr       */
+/*   Updated: 2024/05/09 18:42:47 by ana-lda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_putnbr(int nbr)
+int	ft_putnbr(int nbr, int u)
 {
-    int result;
+	int			result;
+	long int	i;
 
-    result = 0;
-    if (nbr == -2147483648)
-    {
-        result += write(1, "-2147483648", 11);
-        return (result);
-    }
-    if (nbr < 0)
-    {
-        result += ft_putchar('-');
-        nbr *= -1;
-    }
-    if (nbr < 10)
-        result += ft_putchar(nbr + 48);
-    else
-    {
-        result += ft_putnbr((nbr / 10));
-        result += ft_putnbr((nbr % 10));
-    }
-    return (result);
+	if (!u)
+		i = nbr;
+	else
+		i = (unsigned int) nbr;
+	result = 0;
+	if (i < 0)
+	{
+		result += ft_putchar('-');
+		i *= -1;
+	}
+	if (i < 10)
+		result += ft_putchar((i % 10) + 48);
+	else
+	{
+		result += ft_putnbr((i / 10), 0);
+		result += ft_putnbr((i % 10), 0);
+	}
+	return (result);
 }

@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavolkmann <anavolkmann@student.42.fr>    +#+  +:+       +#+        */
+/*   By: ana-lda- <ana-lda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:50:50 by ana-lda-          #+#    #+#             */
-/*   Updated: 2024/05/09 10:40:51 by anavolkmann      ###   ########.fr       */
+/*   Updated: 2024/05/09 18:41:23 by ana-lda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/** @brief */
-
-/* linha: 29- verifico se existe um sinal de %, caso nao encontre, o char sera
-immpresso e somado a count, que eh o controle de quantos chars foram impressos*/
 int	ft_arguments(char s, va_list ap)
 {
 	int	result;
@@ -24,26 +20,33 @@ int	ft_arguments(char s, va_list ap)
 	if (!s)
 		return (0);
 	else if (s == 'c')
-		result += ft_putchar(va_arg(ap, int));
+		return (ft_putchar(va_arg(ap, int)));
 	else if (s == 's')
-		result += ft_putstr(va_arg(ap, char *));
+		return (ft_putstr(va_arg(ap, char *)));
 	else if (s == 'p')
-		result += ft_putpointer(va_arg(ap, unsigned long));
+		return (ft_putpointer(va_arg(ap, unsigned long)));
 	else if (s == 'd' || s == 'i')
-		result += ft_putnbr(va_arg(ap, int));
+		return (ft_putnbr(va_arg(ap, int), 0));
 	else if (s == 'u')
-		result += ft_putnbr(va_arg(ap, unsigned int));
+		return (ft_putnbr(va_arg(ap, unsigned int), 1));
 	else if (s == 'x' || s == 'X')
-		result += ft_putpointerhexa(va_arg(ap, unsigned int), s);
+		return (ft_putpointerhexa(va_arg(ap, unsigned int), s));
 	else if (s == '%')
-		result += write(1, "%", 1);
-	return (result);
+		return (write(1, "%", 1));
+	return (0);
 }
 
-
+/** @brief Realiza impressao de textos no terminal, possui numero de//
+ parametros vaiado, tantos quanto for necessario.
+ @return o comprimento da string gerada.
+*/
+/* linha: 55- verifico se existe um sinal de %, caso nao encontre,//
+o char sera
+immpresso e somado a count, que eh o controle de quantos chars//
+foram impressos e tb o retorno*/
 int	ft_printf(const char *str, ...)
 {
-	int	count;
+	int		count;
 	va_list	ap;
 
 	count = 0;
@@ -63,12 +66,23 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	return (count);
 }
-
-
+/* 
 #include <stdio.h>
 
-int main(void)
+int main()
 {
-	ft_printf("%u\n", -42);
-	printf("%u\n", -42);
-}
+	int i = 1544;
+    int *var; var = &i;
+    char *str = "TESTE STRING";
+    char c = 'c';
+    int f = 0xffffffff;
+    int rvaluer;
+    int rvalueo;
+
+    rvaluer = ft_printf("\n\nD = [%d]\nPTR = //
+	[%p]\nSTR = [%s]\nC = [%c]\nhex = [%x]\nHEX = [%X]\n", i, var, str, c, f, f);
+    rvalueo = printf("\n\nD = [%d]\nPTR = [%p]\nSTR = //
+	[%s]\nC = [%c]\nhex = [%x]\nHEX = [%X]\n", i, var, str, c, f, f);
+    ft_printf("\n\nReturn Value Replica: [%d]", rvaluer);
+    printf("\n\nReturn Value Original: [%d]", rvalueo);
+} */
