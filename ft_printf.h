@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-lda- <ana-lda-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavolkmann <anavolkmann@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:01:05 by ana-lda-          #+#    #+#             */
-/*   Updated: 2024/05/05 18:56:33 by ana-lda-         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:44:00 by anavolkmann      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,11 @@
 #include <stdio.h>
 
 int	ft_printf(const char *str, ...);
+int ft_putstr(char *str);
+int	ft_putchar(int c);
+int ft_putnbr(int nbr);
+int ft_putpointer(unsigned long nbr);
+int ft_puthexa(unsigned int nbr, const char c);
+int ft_putpointerhexa(unsigned int nbr, const char c);
 
 #endif

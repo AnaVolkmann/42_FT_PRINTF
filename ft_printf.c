@@ -3,48 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-lda- <ana-lda-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavolkmann <anavolkmann@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 19:50:50 by ana-lda-          #+#    #+#             */
-/*   Updated: 2024/05/05 18:26:19 by ana-lda-         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:40:51 by anavolkmann      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
 
 /** @brief */
 
-/* linha: 29- verifico se existe um sinal de %, se sim faco uma verificacao
-se algum do chars passados em seguida sao flags, caso nao encontre, o char sera
+/* linha: 29- verifico se existe um sinal de %, caso nao encontre, o char sera
 immpresso e somado a count, que eh o controle de quantos chars foram impressos*/
+int	ft_arguments(char s, va_list ap)
+{
+	int	result;
+
+	result = 0;
+	if (!s)
+		return (0);
+	else if (s == 'c')
+		result += ft_putchar(va_arg(ap, int));
+	else if (s == 's')
+		result += ft_putstr(va_arg(ap, char *));
+	else if (s == 'p')
+		result += ft_putpointer(va_arg(ap, unsigned long));
+	else if (s == 'd' || s == 'i')
+		result += ft_putnbr(va_arg(ap, int));
+	else if (s == 'u')
+		result += ft_putnbr(va_arg(ap, unsigned int));
+	else if (s == 'x' || s == 'X')
+		result += ft_putpointerhexa(va_arg(ap, unsigned int), s);
+	else if (s == '%')
+		result += write(1, "%", 1);
+	return (result);
+}
+
 
 int	ft_printf(const char *str, ...)
 {
 	int	count;
-	int	i;
 	va_list	ap;
 
 	count = 0;
-	i = 0;
 	va_start(ap, str);
-	while (str[i])
+	if (!str)
+		return (0);
+	while (*str)
 	{
-		if (str[i] == '%' && ft_strchr("cspdiuxX%", str[i + 1]))
-			count += ft_arguments(str, i++, ap);
+		if (*str == '%')
+		{
+			count += ft_arguments(*(++str), ap);
+		}
 		else
-			count += ft_putchar(str[i]);
-		i++;
+			count += write(1, str, 1);
+		++str;
 	}
 	va_end(ap);
 	return (count);
 }
 
-int	ft_arguments(const char *s, int i, va_list ap)
+
+#include <stdio.h>
+
+int main(void)
 {
-	if (s[i] == 'c')
-		return (ft_putchr(s[i + 1]));
-	if (s[i] == 's')
-		return (ft_putstr(s[i + 1]));
-	if (s[i] == 'd')
+	ft_printf("%u\n", -42);
+	printf("%u\n", -42);
 }
